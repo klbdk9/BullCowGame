@@ -1,6 +1,13 @@
+// TODO ASCII Art?
+// TODO choose word length
+// TODO dictionary of isograms chosen at random
+// TODO Hint system. Spend a turn for a hint
+
 #pragma once
+
 #include <string>
 
+// make syntax Unreal friendly
 using FString = std::string;
 using int32 = int;
 
@@ -19,12 +26,6 @@ enum class EGuessStatus
 	Not_Lowercase
 };
 
-enum class EResetStatus
-{
-	OK,
-	No_Hidden_Word
-};
-
 class FBullCowGame
 {
 public:
@@ -37,13 +38,15 @@ public:
 
 	EGuessStatus CheckGuessValidity(FString) const;
 
-	void Reset();			// TODO use a more rich return value and input
+	void Reset();
 	FBullCowCount SubmitValidGuess(FString);
 
 private:					// see constructor for initialization
 	int32 MyCurrentTry;
-	int32 MyMaxTries;
 	FString MyHiddenWord;
 	bool bGameIsWon;
+
+	bool IsIsogram(FString) const;
+	bool IsLowercase(FString) const;
 
 };
