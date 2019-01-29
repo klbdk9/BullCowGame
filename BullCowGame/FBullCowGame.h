@@ -4,8 +4,7 @@
 using FString = std::string;
 using int32 = int;
 
-// two integers initialized to 0
-struct FBullCowCount
+struct FBullCowCount		// two integers initialized to 0
 {
 	int32 Bulls = 0;
 	int32 Cows = 0;
@@ -23,12 +22,10 @@ public:
 	bool IsGameWon() const;
 	bool CheckGuessValidity(FString) const; // TODO use a more rich return value
 
-	void Reset(); // TODO use a more rich return value and input
+	void Reset();			// TODO use a more rich return value and input
 	FBullCowCount SubmitGuess(FString);
 
-// ignore for now, focus on public interface
-private:
-	// see constructor for initialization
+private:					// see constructor for initialization
 	int32 MyCurrentTry;
 	int32 MyMaxTries;
 	FString MyHiddenWord;
