@@ -1,7 +1,9 @@
 #pragma once
 
 #include "FBullCowGame.h"
+
 #include <map>
+
 #define TMap std::map
 
 FBullCowGame::FBullCowGame() { Reset(); }
@@ -96,7 +98,7 @@ FString FBullCowGame::CoverWord()
 	do
 	{
 		CoverUpWord += "*";
-	} while (CoverUpWord.length() < GetHiddenWordLength());
+	} while ((signed)CoverUpWord.length() < GetHiddenWordLength());
 
 	return CoverUpWord;
 }

@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="FBullCowGame.h" />
+    <ClInclude Include="TextFileFunctions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FBullCowGame.cpp" />
@@ -130,7 +131,7 @@
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\ListOfWords.txt" />
+    <Text Include="..\SortedIsograms.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

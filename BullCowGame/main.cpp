@@ -4,9 +4,11 @@ interaction. For game logic see FBullCowGame class.
 */
 #pragma once
 
+#include "FBullCowGame.h"
+#include "TextFileFunctions.h"
+
 #include <iostream>
 #include <string>
-#include "FBullCowGame.h"
 
 // make syntax Unreal friendly
 using FText = std::string;
@@ -22,6 +24,7 @@ void PrintGameSummary();
 FBullCowGame BCGame; // instantiate a new game, re-used across plays
 
 // entry point for application
+
 int32 main() 
 {
 	bool bPlayAgain = false;
@@ -36,6 +39,14 @@ int32 main()
 	return 0;	// exit application
 }
 
+/*
+int32 main()
+{
+	TextFileFunctions::SortListByWordLength("../ListOfIsograms.txt", "../SortedIsograms.txt");
+
+	return 0;
+}
+*/
 void PrintIntro()
 {
 	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";

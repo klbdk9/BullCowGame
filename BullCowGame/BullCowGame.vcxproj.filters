@@ -18,6 +18,9 @@
     <ClInclude Include="FBullCowGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TextFileFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FBullCowGame.cpp">
@@ -39,7 +42,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\ListOfWords.txt">
+    <Text Include="..\SortedIsograms.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
