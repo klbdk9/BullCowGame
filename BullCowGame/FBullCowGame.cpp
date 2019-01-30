@@ -22,8 +22,8 @@ int32 FBullCowGame::GetMaxTries() const
 void FBullCowGame::Reset()
 {
 	const int32 WORD_LENGTH = 5;
-//	const FString HIDDEN_WORD = SetHiddenWord(WORD_LENGTH);	// this MUST be an isogram
-	const FString HIDDEN_WORD = "scope";
+	const FString HIDDEN_WORD = SetHiddenWord(WORD_LENGTH);	// this MUST be an isogram 
+//	const FString HIDDEN_WORD = "scope";
 	MyHiddenWord = HIDDEN_WORD;
 	MyCurrentTry = 1;
 	bGameIsWon = false;

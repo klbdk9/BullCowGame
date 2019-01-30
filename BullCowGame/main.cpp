@@ -24,7 +24,6 @@ void PrintGameSummary();
 FBullCowGame BCGame; // instantiate a new game, re-used across plays
 
 // entry point for application
-/*
 int32 main() 
 {
 	bool bPlayAgain = false;
@@ -38,19 +37,21 @@ int32 main()
 
 	return 0;	// exit application
 }
-*/
 
+/*
 int32 main()
 {
-	std::cout << TextFileFunctions::SelectRandomWordByLength(5);
+	std::cout << TextFileFunctions::PrintTextFileByLine("../SortedIsoLower.txt");
 
 	return 0;
 }
-
+*/
 void PrintIntro()
 {
-	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
-	std::cout << "INFO: A bull is a correct letter in the correct place.\n";
+	std::cout << "Welcome to Bulls and Cows, a fun word game.\n\n";
+	std::cout << "INFO:\nThis is a word guessing game where you will try to\n";
+	std::cout << "guess a random isogram.\nAn isogram is a word with";
+	std::cout << "no repeating letters.\nA bull is a correct letter in the correct place.\n";
 	std::cout << "A cow is the correct letter but in the wrong place.\n\n";
 	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
 	std::cout << " letter isogram I'm thinking of?\n";
@@ -121,7 +122,7 @@ FText GetValidGuess()
 
 bool AskToPlayAgain()
 {
-	std::cout << "Do you want to play again with the same hidden word (y/n)? ";
+	std::cout << "Do you want to play again (y/n)? ";
 	FText Response = "";
 	std::getline(std::cin, Response);
 	std::cout << std::endl;

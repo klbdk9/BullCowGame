@@ -8,6 +8,12 @@
 using FString = std::string;
 using int32 = int;
 
+struct FWordIndex
+{
+	int32 start = 0;
+	int32 end = 0;
+};
+
 class TextFileFunctions
 {
 public:
@@ -15,10 +21,14 @@ public:
 	static int32 NumberOfLines(FString);
 	static bool CreateIsogramList(FString, FString);
 	static bool SortListByWordLength(FString, FString);
-	static bool AddIntMapping(FString, FString);
 	static FString SelectRandomWordByLength(int32);
+	static bool FileToLowercase(FString, FString);
+
+	static FWordIndex SelectWords(int32);
 
 private:
 	static bool IsIsogram(FString);
 	static bool IsLength(FString, int32);
+
+	const static char * WORD_BANK;
 };

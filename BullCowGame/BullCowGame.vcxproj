@@ -131,7 +131,7 @@
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\SortedIsograms.txt" />
+    <Text Include="..\SortedIsoLower.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

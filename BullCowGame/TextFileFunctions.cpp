@@ -1,7 +1,11 @@
 #include "TextFileFunctions.h"
+#include <time.h>
+#include <algorithm>
 #include <map>
 
 #define TMap std::map
+
+const char * TextFileFunctions::WORD_BANK = "../SortedIsoLower.txt";
 
 bool TextFileFunctions::PrintTextFileByLine(FString FileName)
 {
@@ -102,39 +106,92 @@ bool TextFileFunctions::SortListByWordLength(FString Input, FString Output)
 	return true;
 }
 
-bool TextFileFunctions::AddIntMapping(FString Input, FString Output)
-{
-	return false;
-}
-
 FString TextFileFunctions::SelectRandomWordByLength(int32 TheLength)
 {
 	FString Line;
-	std::ifstream File("../SortedIsograms.txt");
+	std::ifstream File(WORD_BANK);
 
-	int32 Count = 1;
+	FWordIndex WordIndexs = TextFileFunctions::SelectWords(TheLength);
+
+	srand (time(NULL));
+
+	int32 RandomInt = rand() % (WordIndexs.end - WordIndexs.start + 1);
+	RandomInt = RandomInt + WordIndexs.start + 1;
+	int32 LineNumber = 1;
+
+	while (getline(File, Line))
+	{
+		++LineNumber; 
+		if (LineNumber == RandomInt)
+		{
+			File.close();
+			return Line;
+		}
+	}
+
+	return Line;
+}
+
+bool TextFileFunctions::FileToLowercase(FString Input, FString Output)
+{
+	FString Line;
+	std::ifstream File(Input);
+	std::ofstream Lowercase(Output);
+
+	if (File.is_open() && Lowercase.is_open())
+	{
+		while (std::getline(File, Line))
+		{
+			std::transform(Line.begin(), Line.end(), Line.begin(), ::tolower);
+			Lowercase << Line << std::endl;
+		}
+
+		File.close();
+		Lowercase.close();
+	}
+	else
+	{
+		std::cout << "Unable to open file";
+		return false;
+	}
+
+	return true;
+}
+
+FWordIndex TextFileFunctions::SelectWords(int32 TheLength)
+{
+	FWordIndex WordRange;
+
+	FString Line;
+	std::ifstream File(WORD_BANK);
+
+	int32 Count = 0;
 	bool CountingWords = false;
-	int32 Start = 0;
 	int32 WordsOfLength = 0;
-	int32 End = 0;
 
 	while (getline(File, Line))
 	{
 		Count++;
 		if ( IsLength(Line, TheLength) && !CountingWords )
 		{
-			Start = Count;
+			WordRange.start = Count;
 			CountingWords = 1;
 			WordsOfLength++;
 		}
-		else if ( IsLength(Line, TheLength && CountingWords) )
+		else if ( IsLength(Line, TheLength) && CountingWords )
 		{
 			WordsOfLength++;
+		}
+		else if ( !IsLength(Line, TheLength) && CountingWords )
+		{
+			break;
 		}
 	}
 	File.close();
 
-	return Line;
+	WordRange.end = WordRange.start + WordsOfLength - 1;
+
+	return WordRange;
 }
 
 bool TextFileFunctions::IsIsogram(FString Word)

@@ -42,7 +42,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\SortedIsograms.txt">
+    <Text Include="..\SortedIsoLower.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
