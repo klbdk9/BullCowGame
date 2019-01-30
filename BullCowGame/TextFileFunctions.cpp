@@ -28,6 +28,20 @@ bool TextFileFunctions::PrintTextFileByLine(FString FileName)
 	return true;
 }
 
+int32 TextFileFunctions::NumberOfLines(FString FileName)
+{
+	int32 LineCount = 0;
+	FString Line;
+	std::ifstream TheFile(FileName);
+	
+	while ( std::getline(TheFile, Line) )
+	{
+		++LineCount;
+	}
+
+	return LineCount;
+}
+
 bool TextFileFunctions::CreateIsogramList(FString Input, FString Output)
 {
 	FString Line;
@@ -95,7 +109,32 @@ bool TextFileFunctions::AddIntMapping(FString Input, FString Output)
 
 FString TextFileFunctions::SelectRandomWordByLength(int32 TheLength)
 {
-	return FString();
+	FString Line;
+	std::ifstream File("../SortedIsograms.txt");
+
+	int32 Count = 1;
+	bool CountingWords = false;
+	int32 Start = 0;
+	int32 WordsOfLength = 0;
+	int32 End = 0;
+
+	while (getline(File, Line))
+	{
+		Count++;
+		if ( IsLength(Line, TheLength) && !CountingWords )
+		{
+			Start = Count;
+			CountingWords = 1;
+			WordsOfLength++;
+		}
+		else if ( IsLength(Line, TheLength && CountingWords) )
+		{
+			WordsOfLength++;
+		}
+	}
+	File.close();
+
+	return Line;
 }
 
 bool TextFileFunctions::IsIsogram(FString Word)

@@ -12,10 +12,11 @@ class TextFileFunctions
 {
 public:
 	static bool PrintTextFileByLine(FString);
+	static int32 NumberOfLines(FString);
 	static bool CreateIsogramList(FString, FString);
 	static bool SortListByWordLength(FString, FString);
 	static bool AddIntMapping(FString, FString);
-	FString SelectRandomWordByLength(int32);
+	static FString SelectRandomWordByLength(int32);
 
 private:
 	static bool IsIsogram(FString);

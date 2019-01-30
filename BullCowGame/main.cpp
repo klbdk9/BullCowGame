@@ -24,7 +24,7 @@ void PrintGameSummary();
 FBullCowGame BCGame; // instantiate a new game, re-used across plays
 
 // entry point for application
-
+/*
 int32 main() 
 {
 	bool bPlayAgain = false;
@@ -38,15 +38,15 @@ int32 main()
 
 	return 0;	// exit application
 }
+*/
 
-/*
 int32 main()
 {
-	TextFileFunctions::SortListByWordLength("../ListOfIsograms.txt", "../SortedIsograms.txt");
+	std::cout << TextFileFunctions::SelectRandomWordByLength(5);
 
 	return 0;
 }
-*/
+
 void PrintIntro()
 {
 	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";

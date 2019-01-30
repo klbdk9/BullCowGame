@@ -1,6 +1,7 @@
 #pragma once
 
 #include "FBullCowGame.h"
+#include "TextFileFunctions.h"
 
 #include <map>
 
@@ -20,8 +21,9 @@ int32 FBullCowGame::GetMaxTries() const
 
 void FBullCowGame::Reset()
 {
-	const FString HIDDEN_WORD = "cat";	// this MUST be an isogram
-
+	const int32 WORD_LENGTH = 5;
+//	const FString HIDDEN_WORD = SetHiddenWord(WORD_LENGTH);	// this MUST be an isogram
+	const FString HIDDEN_WORD = "scope";
 	MyHiddenWord = HIDDEN_WORD;
 	MyCurrentTry = 1;
 	bGameIsWon = false;
@@ -86,9 +88,11 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 	return BullCowCount;
 }
 
-FString FBullCowGame::SetHiddenWord(int32)
+FString FBullCowGame::SetHiddenWord(int32 TheLength)
 {
-	return FString();
+	FString RandomHiddenWord = TextFileFunctions::SelectRandomWordByLength(TheLength);
+
+	return RandomHiddenWord;
 }
 
 FString FBullCowGame::CoverWord()
