@@ -51,6 +51,7 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 {
 	MyCurrentTry++;
 	FBullCowCount BullCowCount;
+	BullCowCount.CoveredWord = CoverWord();
 
 	int32 WordLength = MyHiddenWord.length();											// assume hidden word is same length as guess
 	for (int32 HiddenWordChar = 0; HiddenWordChar < WordLength; HiddenWordChar++)		// loop through all letters in the hidden word
@@ -62,6 +63,7 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 				if (HiddenWordChar == GuessChar)
 				{
 					BullCowCount.Bulls++; // increment bulls
+					BullCowCount.CoveredWord = UncoverWord(BullCowCount.CoveredWord, MyHiddenWord[HiddenWordChar], GuessChar);
 				}
 				else
 				{
@@ -80,6 +82,32 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 	}
 
 	return BullCowCount;
+}
+
+FString FBullCowGame::SetHiddenWord(int32)
+{
+	return FString();
+}
+
+FString FBullCowGame::CoverWord()
+{
+	FString CoverUpWord = "";
+
+	do
+	{
+		CoverUpWord += "*";
+	} while (CoverUpWord.length() < GetHiddenWordLength());
+
+	return CoverUpWord;
+}
+
+FString FBullCowGame::UncoverWord(FString CoveredWord, char ShowChar, int32 CharPlace)
+{
+	FString UncoveredWord = CoveredWord;
+
+	UncoveredWord[CharPlace] = ShowChar;
+
+	return UncoveredWord;
 }
 
 bool FBullCowGame::IsIsogram(FString Word) const

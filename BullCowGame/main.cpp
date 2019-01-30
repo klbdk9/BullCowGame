@@ -39,6 +39,8 @@ int32 main()
 void PrintIntro()
 {
 	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
+	std::cout << "INFO: A bull is a correct letter in the correct place.\n";
+	std::cout << "A cow is the correct letter but in the wrong place.\n\n";
 	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
 	std::cout << " letter isogram I'm thinking of?\n";
 	std::cout << std::endl;
@@ -60,6 +62,7 @@ void PlayGame()
 
 		std::cout << "Bulls = " << BullCowCount.Bulls;			// print number of bulls and cows
 		std::cout << " Cows = " << BullCowCount.Cows << std::endl;
+		std::cout << "Word: " << BullCowCount.CoveredWord << std::endl; // TODO Only show on Beginner difficulty
 
 		std::cout << std::endl;
 	}
