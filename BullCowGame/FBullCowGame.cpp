@@ -11,6 +11,7 @@ FBullCowGame::FBullCowGame() { Reset(); }
 
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
 int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
+FString FBullCowGame::GetHiddenWord() const { return MyHiddenWord; }
 bool FBullCowGame::IsGameWon() const { return bGameIsWon; }
 
 int32 FBullCowGame::GetMaxTries() const
@@ -67,7 +68,7 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 				if (HiddenWordChar == GuessChar)
 				{
 					BullCowCount.Bulls++; // increment bulls
-					BullCowCount.CoveredWord = UncoverWord(BullCowCount.CoveredWord, MyHiddenWord[HiddenWordChar], GuessChar);
+					BullCowCount.CoveredWord = UncoverLetter(BullCowCount.CoveredWord, MyHiddenWord[HiddenWordChar], GuessChar);
 				}
 				else
 				{
@@ -107,7 +108,7 @@ FString FBullCowGame::CoverWord()
 	return CoverUpWord;
 }
 
-FString FBullCowGame::UncoverWord(FString CoveredWord, char ShowChar, int32 CharPlace)
+FString FBullCowGame::UncoverLetter(FString CoveredWord, char ShowChar, int32 CharPlace)
 {
 	FString UncoveredWord = CoveredWord;
 

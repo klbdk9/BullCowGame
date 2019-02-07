@@ -50,7 +50,7 @@ void PrintIntro()
 {
 	std::cout << "Welcome to Bulls and Cows, a fun word game.\n\n";
 	std::cout << "INFO:\nThis is a word guessing game where you will try to\n";
-	std::cout << "guess a random isogram.\nAn isogram is a word with";
+	std::cout << "guess a random isogram.\nAn isogram is a word with ";
 	std::cout << "no repeating letters.\nA bull is a correct letter in the correct place.\n";
 	std::cout << "A cow is the correct letter but in the wrong place.\n\n";
 	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
@@ -138,6 +138,8 @@ void PrintGameSummary()
 	}
 	else
 	{
+		std::cout << "The word was: ";
+		std::cout << BCGame.GetHiddenWord() << "\n";
 		std::cout << "Better luck next time!\n";
 	}
 }

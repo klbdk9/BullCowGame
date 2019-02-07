@@ -37,6 +37,7 @@ public:
 	int32 GetMaxTries() const;
 	int32 GetCurrentTry() const;
 	int32 GetHiddenWordLength() const;
+	FString GetHiddenWord() const;
 	bool IsGameWon() const;
 
 	EGuessStatus CheckGuessValidity(FString) const;
@@ -54,6 +55,6 @@ private:					// see constructor for initialization
 
 	FString SetHiddenWord(int32);
 	FString CoverWord();
-	FString UncoverWord(FString, char, int32);
+	FString UncoverLetter(FString, char, int32);
 
 };
