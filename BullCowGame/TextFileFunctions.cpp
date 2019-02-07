@@ -74,10 +74,10 @@ bool TextFileFunctions::CreateIsogramList(FString Input, FString Output)
 	return true;
 }
 
-bool TextFileFunctions::SortListByWordLength(FString Input, FString Output)
+bool TextFileFunctions::SortIsogramByWordLength(FString Input, FString Output)
 {
 	constexpr int32 MIN_WORD_LENGTH = 3;
-	constexpr int32 MAX_WORD_LENGTH = 20;
+	constexpr int32 MAX_WORD_LENGTH = 26;
 
 	for (int CurrentLength = MIN_WORD_LENGTH; CurrentLength < MAX_WORD_LENGTH; CurrentLength++)
 	{
@@ -111,12 +111,12 @@ FString TextFileFunctions::SelectRandomWordByLength(int32 TheLength)
 	FString Line;
 	std::ifstream File(WORD_BANK);
 
-	FWordIndex WordIndexs = TextFileFunctions::SelectWords(TheLength);
+	FWordIndex WordIndexes = TextFileFunctions::SelectWords(TheLength);
 
 	srand (time(NULL));
 
-	int32 RandomInt = rand() % (WordIndexs.end - WordIndexs.start + 1);
-	RandomInt = RandomInt + WordIndexs.start + 1;
+	int32 RandomInt = rand() % (WordIndexes.end - WordIndexes.start + 1);
+	RandomInt = RandomInt + WordIndexes.start + 1;
 	int32 LineNumber = 1;
 
 	while (getline(File, Line))

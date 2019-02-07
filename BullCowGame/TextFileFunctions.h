@@ -20,7 +20,7 @@ public:
 	static bool PrintTextFileByLine(FString);
 	static int32 NumberOfLines(FString);
 	static bool CreateIsogramList(FString, FString);
-	static bool SortListByWordLength(FString, FString);
+	static bool SortIsogramByWordLength(FString, FString);
 	static FString SelectRandomWordByLength(int32);
 	static bool FileToLowercase(FString, FString);
 

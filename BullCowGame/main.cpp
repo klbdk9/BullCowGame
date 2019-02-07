@@ -16,6 +16,7 @@ using int32 = int;
 
 int main();
 void PrintIntro();
+void PrintDifficultyPrompt();
 void PlayGame();
 FText GetValidGuess();
 bool AskToPlayAgain();
@@ -31,6 +32,7 @@ int32 main()
 	do
 	{
 		PrintIntro();
+		PrintDifficultyPrompt();
 		PlayGame();
 		bPlayAgain = AskToPlayAgain();
 	} while (bPlayAgain);
@@ -52,9 +54,18 @@ void PrintIntro()
 	std::cout << "INFO:\nThis is a word guessing game where you will try to\n";
 	std::cout << "guess a random isogram.\nAn isogram is a word with ";
 	std::cout << "no repeating letters.\nA bull is a correct letter in the correct place.\n";
-	std::cout << "A cow is the correct letter but in the wrong place.\n\n";
-	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
-	std::cout << " letter isogram I'm thinking of?\n";
+	std::cout << "A cow is the correct letter but in the wrong place.\n";
+	std::cout << std::endl;
+	return;
+}
+
+void PrintDifficultyPrompt()
+{
+	FText UserDifficulty;
+	std::cout << "Easy or Hard mode? ";  // TODO check for valid input
+	std::getline(std::cin, UserDifficulty);
+
+	BCGame.SetDifficulty(UserDifficulty);
 	std::cout << std::endl;
 	return;
 }
@@ -64,6 +75,7 @@ void PlayGame()
 {
 	BCGame.Reset();
 	int32 MaxTries = BCGame.GetMaxTries();
+	std::cout << "The hidden word is a " << BCGame.GetHiddenWordLength() << " letter word.\n";
 
 	// ask for guesses while game is NOT won and there are tries remaining
 	while(!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries)			

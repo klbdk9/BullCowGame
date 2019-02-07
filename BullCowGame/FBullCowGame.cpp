@@ -10,25 +10,48 @@
 FBullCowGame::FBullCowGame() { Reset(); }
 
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
+int32 FBullCowGame::GetEasyLength() const { return EasyLength; }
+int32 FBullCowGame::GetHardLength() const { return HardLength; }
+int32 FBullCowGame::GetDifficulty() const { return Difficulty; }
 int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
 FString FBullCowGame::GetHiddenWord() const { return MyHiddenWord; }
 bool FBullCowGame::IsGameWon() const { return bGameIsWon; }
 
 int32 FBullCowGame::GetMaxTries() const
 {
-	TMap<int32, int32> WordLengthToMaxTries{ {3, 4}, {4, 7}, {5, 10}, {6, 15}, {7, 20} };
+	TMap<int32, int32> WordLengthToMaxTries{ {3, 5}, {4, 7}, {5, 10}, {6, 12}, {7, 15}, {8, 17}, {9, 20}, {10, 22}, {11, 24}, {12, 25}, {13, 26}, {14, 27}, {15, 5} };
 	return WordLengthToMaxTries[MyHiddenWord.length()];
 }
 
 void FBullCowGame::Reset()
 {
-	const int32 WORD_LENGTH = 5;
-	const FString HIDDEN_WORD = SetHiddenWord(WORD_LENGTH);	// this MUST be an isogram 
+	srand(time(NULL));
+
+	const int32 WORD_LENGTH = rand() % (FBullCowGame::GetDifficulty() - 3) + 3;
+	const FString HIDDEN_WORD = SetHiddenWord(WORD_LENGTH);	// this MUST be an isogram
 //	const FString HIDDEN_WORD = "scope";
 	MyHiddenWord = HIDDEN_WORD;
 	MyCurrentTry = 1;
 	bGameIsWon = false;
 	return;
+}
+
+int32 FBullCowGame::SetDifficulty(FString Difficulty)
+{
+	int32 WordLength = 1;
+
+	if (Difficulty == "easy")
+	{
+		WordLength = FBullCowGame::GetEasyLength();
+	}
+	else if (Difficulty == "hard")
+	{
+		WordLength = FBullCowGame::GetHardLength();
+	}
+
+	FBullCowGame::Difficulty = WordLength;
+
+	return FBullCowGame::Difficulty; // TODO Check entire method & calls for redundant code
 }
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
