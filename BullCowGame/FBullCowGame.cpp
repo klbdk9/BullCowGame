@@ -7,12 +7,18 @@
 
 #define TMap std::map
 
-FBullCowGame::FBullCowGame() { Reset(); }
+FBullCowGame::FBullCowGame() 
+{
+	MyCurrentTry = 1;
+	MinLength = 3;		// the shortest a word in the word pool provided is 3
+	MaxLength = 15;		// and the longest is 15
+	MyHiddenWord = "defaultword";
+	bGameIsWon = false;
+}
 
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
-int32 FBullCowGame::GetEasyLength() const { return EasyLength; }
-int32 FBullCowGame::GetHardLength() const { return HardLength; }
-int32 FBullCowGame::GetDifficulty() const { return Difficulty; }
+int32 FBullCowGame::GetMinLength() const { return MinLength; }
+int32 FBullCowGame::GetMaxLength() const { return MaxLength; }
 int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
 FString FBullCowGame::GetHiddenWord() const { return MyHiddenWord; }
 bool FBullCowGame::IsGameWon() const { return bGameIsWon; }
@@ -25,33 +31,30 @@ int32 FBullCowGame::GetMaxTries() const
 
 void FBullCowGame::Reset()
 {
-	srand(time(NULL));
+	srand(time(NULL));	// seed srand. the line below selects 'random' integer from within difficulty bounds 
+	const int32 WORD_LENGTH = rand() % ((FBullCowGame::GetMaxLength() + 1) - FBullCowGame::GetMinLength()) + FBullCowGame::GetMinLength();
 
-	const int32 WORD_LENGTH = rand() % (FBullCowGame::GetDifficulty() - 3) + 3;
-	const FString HIDDEN_WORD = SetHiddenWord(WORD_LENGTH);	// this MUST be an isogram
-//	const FString HIDDEN_WORD = "scope";
-	MyHiddenWord = HIDDEN_WORD;
+	const FString HIDDEN_WORD = SetHiddenWord(WORD_LENGTH);	// selects an isogram of proper difficulty length from word pool
+	MyHiddenWord = HIDDEN_WORD;								// NOTE word pool must ONLY contain isograms
 	MyCurrentTry = 1;
 	bGameIsWon = false;
 	return;
 }
 
-int32 FBullCowGame::SetDifficulty(FString Difficulty)
+EDifficultyStatus FBullCowGame::CheckDifficultyValidity(FString Difficulty) const
 {
-	int32 WordLength = 1;
-
-	if (Difficulty == "easy")
+	if (!IsLowercase(Difficulty))		// check lowercase first as next if checks against lowercase input
 	{
-		WordLength = FBullCowGame::GetEasyLength();
+		return EDifficultyStatus::Not_Lowercase;
 	}
-	else if (Difficulty == "hard")
+	else if (!IsValidDifficulty(Difficulty))
 	{
-		WordLength = FBullCowGame::GetHardLength();
+		return EDifficultyStatus::Not_Difficulty;
 	}
-
-	FBullCowGame::Difficulty = WordLength;
-
-	return FBullCowGame::Difficulty; // TODO Check entire method & calls for redundant code
+	else
+	{
+		return EDifficultyStatus::OK;
+	}
 }
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
@@ -74,7 +77,24 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 	}
 }
 
-// receives a VALID guess, increments turn and returns count
+// receives a valid difficulty input, sets min and max word lengths to choose from
+void FBullCowGame::SetValidDifficulty(FString Difficulty)
+{
+	if (Difficulty == "easy")
+	{
+		FBullCowGame::MinLength = 3;
+		FBullCowGame::MaxLength = 6;
+	}
+	else if (Difficulty == "hard")
+	{
+		FBullCowGame::MinLength = 6;
+		FBullCowGame::MaxLength = 11;
+	}
+
+	return;
+}
+
+// receives a valid guess, increments turn and returns bull and cow count, and uncovered word
 FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 {
 	MyCurrentTry++;
@@ -172,5 +192,15 @@ bool FBullCowGame::IsLowercase(FString Word) const
 			return false;
 	}
 	return true;
+}
+
+bool FBullCowGame::IsValidDifficulty(FString Difficulty) const
+{
+	if (Difficulty == "easy" || Difficulty == "hard")
+	{
+		return true;
+	}
+
+	return false;
 }
 

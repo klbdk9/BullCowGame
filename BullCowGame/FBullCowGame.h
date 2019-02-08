@@ -1,7 +1,12 @@
-// TODO ASCII Art?
-// TODO balancing word length to # of turns
+// TODO FULLY COMMENT CODE & make sure all methods/calls are clear
 // TODO Spend a turn for a bull
-// TODO choose Difficulty: (Easy, Hard) Easy has max word length of 6, Hard has word length 6+
+// TODO Add dictionary with definitions
+
+// TODO balancing word length to # of turns (only can be done by multiple play throughs, work in progress)
+// TODO balancing difficulty (is 3-6 okay for easy and 6-11 okay for hard?)
+
+// TODO GUI ASCII Art
+// TODO GUI WARNING: Highly time consuming. Add Pleasant GUI, graphics. possibly refactor to mobile game
 
 #pragma once
 
@@ -32,7 +37,7 @@ enum class EDifficultyStatus
 {
 	Invalid_Status,
 	OK,
-	Not_Status,
+	Not_Difficulty,
 	Not_Lowercase
 };
 
@@ -43,29 +48,29 @@ public:
 
 	int32 GetMaxTries() const;
 	int32 GetCurrentTry() const;
-	int32 GetEasyLength() const;
-	int32 GetHardLength() const;
-	int32 GetDifficulty() const;
+	int32 GetMinLength() const;
+	int32 GetMaxLength() const;
 	int32 GetHiddenWordLength() const;
 	FString GetHiddenWord() const;
 	bool IsGameWon() const;
 
 	EGuessStatus CheckGuessValidity(FString) const;
+	EDifficultyStatus CheckDifficultyValidity(FString) const;
 
 	void Reset();
-	int32 SetDifficulty(FString);
+	void SetValidDifficulty(FString);
 	FBullCowCount SubmitValidGuess(FString);
 
 private:					// see constructor for initialization
 	int32 MyCurrentTry;
-	int32 EasyLength = 6;
-	int32 HardLength = 15;
-	int32 Difficulty = EasyLength;
+	int32 MinLength;
+	int32 MaxLength;
 	FString MyHiddenWord;
 	bool bGameIsWon;
 
 	bool IsIsogram(FString) const;
 	bool IsLowercase(FString) const;
+	bool IsValidDifficulty(FString) const;
 
 	FString SetHiddenWord(int32);
 	FString CoverWord();

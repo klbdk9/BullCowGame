@@ -18,6 +18,7 @@ int main();
 void PrintIntro();
 void PrintDifficultyPrompt();
 void PlayGame();
+FText GetValidDifficulty();
 FText GetValidGuess();
 bool AskToPlayAgain();
 void PrintGameSummary();
@@ -43,7 +44,7 @@ int32 main()
 /*
 int32 main()
 {
-	std::cout << TextFileFunctions::PrintTextFileByLine("../SortedIsoLower.txt");
+	std::cout << "The Word Bank File used in this game is found at ../SortedIsoLower.txt";
 
 	return 0;
 }
@@ -61,11 +62,9 @@ void PrintIntro()
 
 void PrintDifficultyPrompt()
 {
-	FText UserDifficulty;
-	std::cout << "Easy or Hard mode? ";  // TODO check for valid input
-	std::getline(std::cin, UserDifficulty);
+	FText UserDifficulty = GetValidDifficulty();
 
-	BCGame.SetDifficulty(UserDifficulty);
+	BCGame.SetValidDifficulty(UserDifficulty);
 	std::cout << std::endl;
 	return;
 }
@@ -86,13 +85,41 @@ void PlayGame()
 
 		std::cout << "Bulls = " << BullCowCount.Bulls;			// print number of bulls and cows
 		std::cout << " Cows = " << BullCowCount.Cows << std::endl;
-		std::cout << "Word: " << BullCowCount.CoveredWord << std::endl; // TODO Only show on Beginner difficulty
+		std::cout << "Word: " << BullCowCount.CoveredWord << std::endl;
 
 		std::cout << std::endl;
 	}
 
 	PrintGameSummary();
 	return;
+}
+
+// loop until user provides valid difficulty
+FText GetValidDifficulty()
+{
+	FText UserDifficulty = "";
+
+	EDifficultyStatus Status = EDifficultyStatus::Invalid_Status;
+	do
+	{
+		std::cout << "Do you want to play 'easy' or 'hard' mode? ";
+		std::getline(std::cin, UserDifficulty);
+
+		Status = BCGame.CheckDifficultyValidity(UserDifficulty);
+		switch (Status)
+		{
+		case EDifficultyStatus::Not_Lowercase:
+			std::cout << "Please only use lowercase letters.\n";
+			break;
+		case EDifficultyStatus::Not_Difficulty:
+			std::cout << "Please enter only 'easy' or 'hard'.\n";
+			break;
+		default:
+			break;
+		}
+	} while (Status != EDifficultyStatus::OK);
+
+	return UserDifficulty;
 }
 
 // loop until user provides valid guess
