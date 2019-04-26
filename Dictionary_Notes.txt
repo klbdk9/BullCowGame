@@ -1,0 +1,15 @@
+Dictionary Key and Notes
+
+[n] noun
+[v] verb
+[adj] adjective
+[adv] adverb
+[interj] interjection
+[prep] preposition
+[conj] conjunction
+[pron] pronoun
+
+regex for search: \[n|\[v|\[adj|\[adv|\[interj|\[prep|\[conj|\[pron
+
+NOTE: Need to determine formatting for multiple definitions
+NOTE: Need to purge duplicates

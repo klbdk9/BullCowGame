@@ -10,8 +10,8 @@
 FBullCowGame::FBullCowGame() 
 {
 	MyCurrentTry = 1;
-	MinLength = 3;		// the shortest a word in the word pool provided is 3
-	MaxLength = 15;		// and the longest is 15
+	MinLength = 3;		// the shortest word length in the word pool provided: 3
+	MaxLength = 15;		// and the longest length: 15
 	MyHiddenWord = "defaultword";
 	bGameIsWon = false;
 }
@@ -35,7 +35,7 @@ void FBullCowGame::Reset()
 	const int32 WORD_LENGTH = rand() % ((FBullCowGame::GetMaxLength() + 1) - FBullCowGame::GetMinLength()) + FBullCowGame::GetMinLength();
 
 	const FString HIDDEN_WORD = SetHiddenWord(WORD_LENGTH);	// selects an isogram of proper difficulty length from word pool
-	MyHiddenWord = HIDDEN_WORD;								// NOTE word pool must ONLY contain isograms
+	MyHiddenWord = HIDDEN_WORD;								// NOTE: word pool must ONLY contain isograms
 	MyCurrentTry = 1;
 	bGameIsWon = false;
 	return;

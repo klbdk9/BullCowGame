@@ -6,7 +6,7 @@
 #define TMap std::map
 
 const char * TextFileFunctions::WORD_BANK = "../SortedIsoLower.txt";
-
+// TODO see Dictionary_Notes.txt
 bool TextFileFunctions::PrintTextFileByLine(FString FileName)
 {
 	FString Line;
@@ -148,6 +148,42 @@ bool TextFileFunctions::FileToLowercase(FString Input, FString Output)
 
 		File.close();
 		Lowercase.close();
+	}
+	else
+	{
+		std::cout << "Unable to open file";
+		return false;
+	}
+
+	return true;
+}
+
+bool TextFileFunctions::FormatDefinitions(FString Input, FString Output)  // TODO reformat definitions to display word type at beginning of def, and remove suffixes (instead of [n -ED -S], just display [noun]) 
+{
+	FString Line; // TODO make sure naming is clear and consistent
+	std::ifstream File(Input);
+	std::ofstream DefFormat(Output);
+
+	if (File.is_open() && DefFormat.is_open())
+	{
+		while (std::getline(File, Line))
+		{
+			size_t space = Line.find('\t');
+			FString word = Line.substr(0, space);
+			FString def = Line.substr(space);
+
+			while (def.substr(0, 1) == "\t")
+			{
+				def = def.substr(1);
+			}
+
+			Line = word + ": " + def;
+
+			DefFormat << Line << std::endl;
+		}
+
+		File.close();
+		DefFormat.close();
 	}
 	else
 	{

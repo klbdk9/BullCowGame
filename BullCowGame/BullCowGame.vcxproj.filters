@@ -45,5 +45,11 @@
     <Text Include="..\SortedIsoLower.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="..\Dictionary.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\Dictionary_Notes.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

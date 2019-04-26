@@ -131,6 +131,8 @@
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="..\Dictionary.txt" />
+    <Text Include="..\Dictionary_Notes.txt" />
     <Text Include="..\SortedIsoLower.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

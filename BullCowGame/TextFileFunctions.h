@@ -23,6 +23,7 @@ public:
 	static bool SortIsogramByWordLength(FString, FString);
 	static FString SelectRandomWordByLength(int32);
 	static bool FileToLowercase(FString, FString);
+	static bool FormatDefinitions(FString Input, FString Output);
 
 	static FWordIndex SelectWords(int32);
 
